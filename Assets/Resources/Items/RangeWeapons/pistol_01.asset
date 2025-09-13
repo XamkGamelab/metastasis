@@ -18,13 +18,13 @@ MonoBehaviour:
     over the past decades, but this one seems to be a very early iteration.
   <itemMaxStack>k__BackingField: 1
   <itemWeight>k__BackingField: 1.1
-  <itemMesh>k__BackingField: {fileID: 0}
-  <itemMaterial>k__BackingField: {fileID: 0}
+  <itemPrefab>k__BackingField: {fileID: 0}
   <gunType>k__BackingField: 0
-  <reloadMethod>k__BackingField: 0
+  <reloadMethod>k__BackingField: 1
   <actionType>k__BackingField: 1
   <shotCooldownSeconds>k__BackingField: 0.2
-  <damagePerProjectile>k__BackingField: 10
+  <minDamagePerProjectile>k__BackingField: 0
+  <maxDamagePerProjectile>k__BackingField: 0
   <projectilesPerShot>k__BackingField: 1
   <range>k__BackingField: 20
   <minFiringSpread>k__BackingField: 5

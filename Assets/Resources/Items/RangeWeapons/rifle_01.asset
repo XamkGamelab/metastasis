@@ -12,21 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a30b303977b03754787cbaa010afcd76, type: 3}
   m_Name: rifle_01
   m_EditorClassIdentifier: 
-  <itemId>k__BackingField: 
-  <itemName>k__BackingField: 
-  <itemDescription>k__BackingField: 
-  <itemMaxStack>k__BackingField: 0
-  <itemWeight>k__BackingField: 0
-  <itemMesh>k__BackingField: {fileID: 0}
-  <itemMaterial>k__BackingField: {fileID: 0}
-  <gunType>k__BackingField: 0
+  <itemId>k__BackingField: rifle_01
+  <itemName>k__BackingField: Example Rifle
+  <itemDescription>k__BackingField: Cool description I ripped from wikipedia or something.
+  <itemMaxStack>k__BackingField: 1
+  <itemWeight>k__BackingField: 4
+  <itemPrefab>k__BackingField: {fileID: 0}
+  <gunType>k__BackingField: 1
   <reloadMethod>k__BackingField: 0
-  <actionType>k__BackingField: 0
-  <shotCooldownSeconds>k__BackingField: 0
-  <damagePerProjectile>k__BackingField: 0
-  <projectilesPerShot>k__BackingField: 0
-  <range>k__BackingField: 0
-  <minFiringSpread>k__BackingField: 0
-  <maxFiringSpread>k__BackingField: 0
-  <spreadRecoveryPerSecond>k__BackingField: 0
-  <ammoId>k__BackingField: 
+  <actionType>k__BackingField: 1
+  <shotCooldownSeconds>k__BackingField: 0.4
+  <minDamagePerProjectile>k__BackingField: 18
+  <maxDamagePerProjectile>k__BackingField: 23
+  <projectilesPerShot>k__BackingField: 1
+  <range>k__BackingField: 30
+  <minFiringSpread>k__BackingField: 4
+  <maxFiringSpread>k__BackingField: 30
+  <spreadRecoveryPerSecond>k__BackingField: 20
+  <ammoId>k__BackingField: example_ammo_01
