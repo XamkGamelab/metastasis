@@ -5,6 +5,6 @@ namespace SLC.RetroHorror.Core
     [CreateAssetMenu(fileName = "NewNoteItem", menuName = "Items/NoteItem")]
     public class NoteItem : Item
     {
-        public string NoteText;
+        [TextArea(4, 16)]  public string NoteText;
     }
 }
