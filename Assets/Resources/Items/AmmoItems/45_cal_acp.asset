@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fc6709858d451c4da23658de3260172, type: 3}
   m_Name: 45_cal_acp
   m_EditorClassIdentifier: 
-  ItemId: 45_cal_acp
-  ItemName: .45 ACP
-  ItemDescription: "Developed as a response to the perceived lack of stopping power
-    of the .38 Long Colt ammunition, these rounds pack a punch.\t"
-  ItemMaxStack: 12
-  ItemWeight: 0.015
-  ItemMesh: {fileID: 0}
-  ItemMaterial: {fileID: 0}
+  <itemId>k__BackingField: 45_cal_acp
+  <itemName>k__BackingField: .45 ACP Ammo
+  <itemDescription>k__BackingField: Developed in response to criticism of the .38
+    Long Colt ammunition lacking stopping power, these rounds pack a punch.
+  <itemMaxStack>k__BackingField: 12
+  <itemWeight>k__BackingField: 0.012
+  <itemMesh>k__BackingField: {fileID: 0}
+  <itemMaterial>k__BackingField: {fileID: 0}

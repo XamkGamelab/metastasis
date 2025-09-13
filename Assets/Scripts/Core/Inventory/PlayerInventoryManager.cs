@@ -22,7 +22,7 @@ namespace SLC.RetroHorror.Core
                 ItemUI itemUI = Instantiate(itemEntryPrefab, inventoryEntryHolder).GetComponent<ItemUI>();
 
                 //Calc some values and remove unnecessary zeroes from the end of item total weight.
-                float itemTotalWeight = (float)item.Value.Amount * item.Value.Item.ItemWeight;
+                float itemTotalWeight = (float)item.Value.Amount * item.Value.Item.itemWeight;
                 string formattedWeight = itemTotalWeight.ToString("0.000");
                 if (formattedWeight[^2] == '0' && formattedWeight[^1] == '0')
                 {
@@ -34,8 +34,8 @@ namespace SLC.RetroHorror.Core
                 }
 
                 //Update UI
-                itemUI.itemNameField.text = item.Value.Item.ItemName;
-                itemUI.itemDescField.text = item.Value.Item.ItemDescription;
+                itemUI.itemNameField.text = item.Value.Item.itemName;
+                itemUI.itemDescField.text = item.Value.Item.itemDescription;
                 itemUI.itemCountField.text = string.Concat("x", item.Value.Amount.ToString());
                 itemUI.itemWeightField.text = string.Concat(formattedWeight, "kg");
             }

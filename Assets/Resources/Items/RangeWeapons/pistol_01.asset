@@ -12,12 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a30b303977b03754787cbaa010afcd76, type: 3}
   m_Name: pistol_01
   m_EditorClassIdentifier: 
-  ItemId: pistol_01
-  ItemName: Colt M1911
-  ItemDescription: The Colt M1911 has been in use for decades, occasionally receiving
-    a redesign. This one is a very early iteration, but no less reliable.
-  ItemMaxStack: 1
-  ItemWeight: 5
-  ItemMesh: {fileID: 0}
-  ItemMaterial: {fileID: 0}
-  AmmoId: 45_cal_acp
+  <itemId>k__BackingField: pistol_01
+  <itemName>k__BackingField: Colt M1911
+  <itemDescription>k__BackingField: The Colt M1911 has received several redesigns
+    over the past decades, but this one seems to be a very early iteration.
+  <itemMaxStack>k__BackingField: 1
+  <itemWeight>k__BackingField: 1.1
+  <itemMesh>k__BackingField: {fileID: 0}
+  <itemMaterial>k__BackingField: {fileID: 0}
+  <gunType>k__BackingField: 0
+  <reloadMethod>k__BackingField: 0
+  <actionType>k__BackingField: 1
+  <shotCooldownSeconds>k__BackingField: 0.2
+  <damagePerProjectile>k__BackingField: 10
+  <projectilesPerShot>k__BackingField: 1
+  <range>k__BackingField: 20
+  <minFiringSpread>k__BackingField: 5
+  <maxFiringSpread>k__BackingField: 30
+  <spreadRecoveryPerSecond>k__BackingField: 25
+  <ammoId>k__BackingField: 45_cal_acp

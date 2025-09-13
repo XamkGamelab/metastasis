@@ -32,27 +32,27 @@ namespace SLC.RetroHorror.Core
 
             foreach (AmmoItem ammoItem in ammoItems)
             {
-                itemDictionary.Add(ammoItem.ItemId, ammoItem);
+                itemDictionary.Add(ammoItem.itemId, ammoItem);
             }
 
             foreach (ConsumableItem consumableItem in consumableItems)
             {
-                itemDictionary.Add(consumableItem.ItemId, consumableItem);
+                itemDictionary.Add(consumableItem.itemId, consumableItem);
             }
 
             foreach (NoteItem noteItem in noteItems)
             {
-                itemDictionary.Add(noteItem.ItemId, noteItem);
+                itemDictionary.Add(noteItem.itemId, noteItem);
             }
 
             foreach (MeleeWeapon meleeWeapon in meleeWeapons)
             {
-                itemDictionary.Add(meleeWeapon.ItemId, meleeWeapon);
+                itemDictionary.Add(meleeWeapon.itemId, meleeWeapon);
             }
 
             foreach (RangeWeapon rangeWeapon in rangeWeapons)
             {
-                itemDictionary.Add(rangeWeapon.ItemId, rangeWeapon);
+                itemDictionary.Add(rangeWeapon.itemId, rangeWeapon);
             }
         }
     }

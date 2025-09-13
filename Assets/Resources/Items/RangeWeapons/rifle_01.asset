@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a30b303977b03754787cbaa010afcd76, type: 3}
+  m_Name: rifle_01
+  m_EditorClassIdentifier: 
+  <itemId>k__BackingField: 
+  <itemName>k__BackingField: 
+  <itemDescription>k__BackingField: 
+  <itemMaxStack>k__BackingField: 0
+  <itemWeight>k__BackingField: 0
+  <itemMesh>k__BackingField: {fileID: 0}
+  <itemMaterial>k__BackingField: {fileID: 0}
+  <gunType>k__BackingField: 0
+  <reloadMethod>k__BackingField: 0
+  <actionType>k__BackingField: 0
+  <shotCooldownSeconds>k__BackingField: 0
+  <damagePerProjectile>k__BackingField: 0
+  <projectilesPerShot>k__BackingField: 0
+  <range>k__BackingField: 0
+  <minFiringSpread>k__BackingField: 0
+  <maxFiringSpread>k__BackingField: 0
+  <spreadRecoveryPerSecond>k__BackingField: 0
+  <ammoId>k__BackingField: 

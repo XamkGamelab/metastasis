@@ -7,12 +7,13 @@ namespace SLC.RetroHorror.Core
         /// <summary>
         /// This should be unique for each different item type!
         /// </summary>
-        public string ItemId;
-        public string ItemName;
-        [TextArea(2, 10)] public string ItemDescription;
-        public int ItemMaxStack;
-        public float ItemWeight;
-        public Mesh ItemMesh;
-        public Material ItemMaterial;
+        [field: SerializeField] public string itemId { get; private set; }
+        [field: SerializeField] public string itemName { get; private set; }
+
+        [field: SerializeField, TextArea(2, 10)]
+        public string itemDescription { get; private set; }
+        [field: SerializeField] public int itemMaxStack { get; private set; }
+        [field: SerializeField] public float itemWeight { get; private set; }
+        [field: SerializeField] public GameObject itemPrefab { get; private set; }
     }
 }
