@@ -6,6 +6,7 @@ using UnityEngine;
 namespace SLC.RetroHorror.Core
 {
     [RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(Health))]
     public class PlayerController : SaveableMonoBehaviour
     {
         [Header("Input Variables")]
@@ -128,9 +129,14 @@ namespace SLC.RetroHorror.Core
             inputReader.EnablePlayerInput();
             SubscribeInputEvents();
 
-            inventory.AddItem("pistol_01");
-            inventory.AddItem("45_cal_acp", 10);
-            inventory.AddItem("45_cal_acp", 1);
+
+            //////////////////////////////////////////////////////////////////
+            /// TESTING BELOW, DON'T MIND THE POTENTIALLY SHITTY PRACTICES ///
+            //////////////////////////////////////////////////////////////////
+
+            StartCoroutine(GameManager.Instance.DoAfterDelay(() => inventory.AddItem("pistol_01")));
+            StartCoroutine(GameManager.Instance.DoAfterDelay(() => inventory.AddItem("45_cal_acp", 10)));
+            StartCoroutine(GameManager.Instance.DoAfterDelay(() => inventory.AddItem("45_cal_acp", 1)));
         }
 
         private void Update()

@@ -1,9 +1,12 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace SLC.RetroHorror.Core
 {
+    /// <summary>
+    /// This is a barebones test class, used to test Inventory UI.
+    /// Expand as needed with future player inventory UI functionality.
+    /// </summary>
     public class PlayerInventoryManager : MonoBehaviour
     {
         [SerializeField] private Transform inventoryEntryHolder;
@@ -17,10 +20,24 @@ namespace SLC.RetroHorror.Core
             foreach (KeyValuePair<string, InventoryEntry> item in inventory.InventoryItems)
             {
                 ItemUI itemUI = Instantiate(itemEntryPrefab, inventoryEntryHolder).GetComponent<ItemUI>();
-                itemUI.itemNameField.text = item.Value.ItemName;
-                itemUI.itemDescField.text = item.Value.ItemDescription;
+
+                //Calc some values and remove unnecessary zeroes from the end of item total weight.
+                float itemTotalWeight = (float)item.Value.Amount * item.Value.Item.ItemWeight;
+                string formattedWeight = itemTotalWeight.ToString("0.000");
+                if (formattedWeight[^2] == '0' && formattedWeight[^1] == '0')
+                {
+                    formattedWeight = formattedWeight[..^2];
+                }
+                else if (formattedWeight[^1] == '0')
+                {
+                    formattedWeight = formattedWeight[..^1];
+                }
+
+                //Update UI
+                itemUI.itemNameField.text = item.Value.Item.ItemName;
+                itemUI.itemDescField.text = item.Value.Item.ItemDescription;
                 itemUI.itemCountField.text = string.Concat("x", item.Value.Amount.ToString());
-                itemUI.itemWeightField.text = string.Concat(((float)item.Value.Amount * item.Value.ItemWeight).ToString("0.000"), "kg");
+                itemUI.itemWeightField.text = string.Concat(formattedWeight, "kg");
             }
         }
 

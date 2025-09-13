@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using SLC.RetroHorror.DataPersistence;
@@ -122,7 +121,7 @@ namespace SLC.RetroHorror.Core
 
             foreach (KeyValuePair<string, InventoryEntry> item in InventoryItems)
             {
-                _destinationInventory.AddItem(item.Value, item.Value.Amount);
+                _destinationInventory.AddItem(item.Value.Item.ItemId, item.Value.Amount);
             }
             InventoryItems.Clear();
         }

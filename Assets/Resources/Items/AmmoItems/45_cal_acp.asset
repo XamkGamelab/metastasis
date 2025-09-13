@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fc6709858d451c4da23658de3260172, type: 3}
+  m_Name: 45_cal_acp
+  m_EditorClassIdentifier: 
+  ItemId: 45_cal_acp
+  ItemName: .45 ACP
+  ItemDescription: "Developed as a response to the perceived lack of stopping power
+    of the .38 Long Colt ammunition, these rounds pack a punch.\t"
+  ItemMaxStack: 12
+  ItemWeight: 0.015
+  ItemMesh: {fileID: 0}
+  ItemMaterial: {fileID: 0}
