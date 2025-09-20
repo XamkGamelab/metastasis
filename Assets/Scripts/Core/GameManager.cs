@@ -32,8 +32,8 @@ namespace SLC.RetroHorror.Core
 
             ids.GroupBy(i => i).Where(g => g.Count() > 1).Select(g => g.Key).ToList().ForEach((id) =>
             {
-                string error = $"Found duplicate uniqueId: {id}\nOn objects: ";
-                uniqueIds.Where(uid => uid.uniqueId == id).ToList().ForEach(uid => error += $"{uid.name} ");
+                string error = $"Found duplicate uniqueId: {id}\nOn objects:";
+                uniqueIds.Where(uid => uid.uniqueId == id).ToList().ForEach(uid => error += $" {uid.name}");
                 Debug.LogError(error);
             });
         }

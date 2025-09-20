@@ -15,7 +15,7 @@ namespace SLC.RetroHorror.Core
 
         public void UpdateInventoryState()
         {
-            ClearInventory();
+            ClearInventoryUI();
 
             foreach (KeyValuePair<string, InventoryEntry> item in inventory.InventoryItems)
             {
@@ -41,7 +41,7 @@ namespace SLC.RetroHorror.Core
             }
         }
 
-        private void ClearInventory()
+        private void ClearInventoryUI()
         {
             foreach (Transform child in inventoryEntryHolder)
             {

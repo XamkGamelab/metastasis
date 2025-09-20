@@ -8,7 +8,7 @@ namespace SLC.RetroHorror.Core
     /// Usage: public class ExampleSingleton : MonoSingleton<ExampleSingleton>
     /// </summary>
     /// <typeparam name="T">Class to make singleton of.</typeparam>
-    public class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
+    public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
     {
         public static T Instance { get; protected set; }
 

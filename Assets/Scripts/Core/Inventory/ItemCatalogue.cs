@@ -13,6 +13,7 @@ namespace SLC.RetroHorror.Core
         public Dictionary<string, Item> itemDictionary;
         private AmmoItem[] ammoItems;
         private ConsumableItem[] consumableItems;
+        private KeyItem[] keyItems;
         private NoteItem[] noteItems;
         private MeleeWeapon[] meleeWeapons;
         private RangeWeapon[] rangeWeapons;
@@ -26,6 +27,7 @@ namespace SLC.RetroHorror.Core
             itemDictionary = new();
             ammoItems = Resources.LoadAll<AmmoItem>("Items/AmmoItems");
             consumableItems = Resources.LoadAll<ConsumableItem>("Items/ConsumableItems");
+            keyItems = Resources.LoadAll<KeyItem>("Items/KeyItems");
             noteItems = Resources.LoadAll<NoteItem>("Items/NoteItems");
             meleeWeapons = Resources.LoadAll<MeleeWeapon>("Items/MeleeWeapons");
             rangeWeapons = Resources.LoadAll<RangeWeapon>("Items/RangeWeapons");
@@ -38,6 +40,11 @@ namespace SLC.RetroHorror.Core
             foreach (ConsumableItem consumableItem in consumableItems)
             {
                 itemDictionary.Add(consumableItem.itemId, consumableItem);
+            }
+
+            foreach (KeyItem keyItem in keyItems)
+            {
+                itemDictionary.Add(keyItem.itemId, keyItem);
             }
 
             foreach (NoteItem noteItem in noteItems)

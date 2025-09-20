@@ -1,4 +1,5 @@
 using SLC.RetroHorror.DataPersistence;
+using TMPro;
 using UnityEngine;
 
 namespace SLC.RetroHorror.Core
@@ -6,25 +7,27 @@ namespace SLC.RetroHorror.Core
     public class InteractableBase : SaveableMonoBehaviour, IInteractable
     {
         [Space, Header("Interaction Settings")]
-        [SerializeField] private bool isInteractable = true;
+        public bool isInteractable = true;
+        
         [Tooltip("Show this message whenever within interaction range.")]
-        [SerializeField] private string interactionMessage = "Interact";
+        public string interactionMessage = "Interact";
         [SerializeField] private GameObject interactIndicator;
+        [SerializeField] private TextMeshProUGUI interactText;
 
         #region Properties
-        public bool IsInteractable => isInteractable;
-        public string InteractionMessage => interactionMessage;
         public Collider InteractCollider { get; private set; }
+        public bool IndicatorIsVisible { get; private set; } = false;
 
         #endregion
 
         protected virtual void Start()
         {
-            if (!TryGetComponent<Collider>(out Collider attachedCollider))
+            if (!TryGetComponent(out Collider attachedCollider))
             {
                 Debug.LogWarning($"Interactable {gameObject.name} does not have the collider required for interaction!");
             }
             InteractCollider = attachedCollider;
+            interactText.text = interactionMessage;
         }
 
         public virtual void OnInteract(InteractionController controller)
@@ -34,12 +37,16 @@ namespace SLC.RetroHorror.Core
 
         public void ActivateIndicator()
         {
-            if (interactIndicator != null) interactIndicator.SetActive(true);
+            if (interactIndicator == null) return;
+            IndicatorIsVisible = true;
+            interactIndicator.SetActive(true);
         }
 
         public void DeactivateIndicator()
         {
-            if (interactIndicator != null) interactIndicator.SetActive(false);
+            if (interactIndicator == null) return;
+            IndicatorIsVisible = false;
+            interactIndicator.SetActive(false);
         }
     }
 }
