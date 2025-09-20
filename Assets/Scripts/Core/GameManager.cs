@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using SLC.RetroHorror.DataPersistence;
@@ -5,14 +7,15 @@ using UnityEngine;
 
 namespace SLC.RetroHorror.Core
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : MonoSingleton<GameManager>
     {
         [SerializeField] private ItemCatalogue itemCatalogue;
 
         #region Default Methods
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             CheckForDuplicateIds();
             itemCatalogue.InitializeItemDictionary();
         }
@@ -33,6 +36,24 @@ namespace SLC.RetroHorror.Core
                 uniqueIds.Where(uid => uid.uniqueId == id).ToList().ForEach(uid => error += $"{uid.name} ");
                 Debug.LogError(error);
             });
+        }
+
+        #endregion
+
+        #region Helper Methods
+
+        public IEnumerator DoAfterDelay(Action _action, float _delay = 0f)
+        {
+            if (_delay == 0f) yield return null;
+            else yield return new WaitForSeconds(_delay);
+
+            _action?.Invoke();
+        }
+
+        public IEnumerator DoAfterDelay(Action _action, WaitForSeconds _wait)
+        {
+            yield return _wait;
+            _action?.Invoke();
         }
 
         #endregion

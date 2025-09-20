@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using SLC.RetroHorror.DataPersistence;
@@ -43,14 +42,14 @@ namespace SLC.RetroHorror.Core
                     InventoryItems.Add(_itemId, new InventoryEntry(catalogue.itemDictionary[_itemId], _amount));
                 else
                 {
-                    Debug.LogError($"ItemId {_itemId} doesn't match any existing item!");
+                    Debug.LogError($"itemId {_itemId} doesn't match any existing item!");
                 }
             }
         }
 
         public void AddItem(Item _item, int _amount = 1)
         {
-            AddItem(_item.ItemId, _amount);
+            AddItem(_item.itemId, _amount);
         }
 
         /// <summary>
@@ -94,21 +93,21 @@ namespace SLC.RetroHorror.Core
         /// <param name="_amount">If left null, moves all available items</param>
         public void MoveItemToOtherInventory(Inventory _destinationInventory, Item _itemToMove, uint? _amount = null)
         {
-            if (_itemToMove == null || !InventoryItems.ContainsKey(_itemToMove.ItemId)) return;
+            if (_itemToMove == null || !InventoryItems.ContainsKey(_itemToMove.itemId)) return;
             else if (_amount == 0)
             {
                 Debug.LogWarning("Unnecessary RemoveItem call, remove this.");
             }
 
-            if (_amount == null || (int)_amount > InventoryItems[_itemToMove.ItemId].Amount)
+            if (_amount == null || (int)_amount > InventoryItems[_itemToMove.itemId].Amount)
             {
-                _destinationInventory.AddItem(_itemToMove, InventoryItems[_itemToMove.ItemId].Amount);
-                InventoryItems.Remove(_itemToMove.ItemId);
+                _destinationInventory.AddItem(_itemToMove, InventoryItems[_itemToMove.itemId].Amount);
+                InventoryItems.Remove(_itemToMove.itemId);
             }
             else
             {
                 _destinationInventory.AddItem(_itemToMove, (int)_amount);
-                RemoveItem(_itemToMove.ItemId, (int)_amount);
+                RemoveItem(_itemToMove.itemId, (int)_amount);
             }
         }
 
@@ -122,7 +121,7 @@ namespace SLC.RetroHorror.Core
 
             foreach (KeyValuePair<string, InventoryEntry> item in InventoryItems)
             {
-                _destinationInventory.AddItem(item.Value, item.Value.Amount);
+                _destinationInventory.AddItem(item.Value.Item.itemId, item.Value.Amount);
             }
             InventoryItems.Clear();
         }
@@ -135,10 +134,10 @@ namespace SLC.RetroHorror.Core
         public int GetItemCount(Item _item)
         {
             if (_item == null) return -2;
-            else if (!InventoryItems.ContainsKey(_item.ItemId)) return -1;
+            else if (!InventoryItems.ContainsKey(_item.itemId)) return -1;
             else
             {
-                return InventoryItems[_item.ItemId].Amount;
+                return InventoryItems[_item.itemId].Amount;
             }
         }
 
@@ -150,17 +149,17 @@ namespace SLC.RetroHorror.Core
         public bool InventoryHasItem(Item _item)
         {
             if (_item == null) return false;
-            else if (!InventoryItems.ContainsKey(_item.ItemId)) return false;
+            else if (!InventoryItems.ContainsKey(_item.itemId)) return false;
             else return true;
         }
 
         public void RemoveAllItemsOfType(Item _item)
         {
             if (_item == null) return;
-            else if (!InventoryItems.ContainsKey(_item.ItemId)) return;
+            else if (!InventoryItems.ContainsKey(_item.itemId)) return;
             else
             {
-                InventoryItems.Remove(_item.ItemId);
+                InventoryItems.Remove(_item.itemId);
             }
         }
 
@@ -174,7 +173,7 @@ namespace SLC.RetroHorror.Core
 
             foreach (KeyValuePair<string, InventoryEntry> keyValuePair in InventoryItems)
             {
-                //It's fine to use an ItemID as the key since those will never have duplicates
+                //It's fine to use an itemId as the key since those will never have duplicates
                 data.ints.Add(keyValuePair.Key, keyValuePair.Value.Amount);
             }
 

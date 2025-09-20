@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a30b303977b03754787cbaa010afcd76, type: 3}
+  m_Name: pistol_01
+  m_EditorClassIdentifier: 
+  <itemId>k__BackingField: pistol_01
+  <itemName>k__BackingField: Colt M1911
+  <itemDescription>k__BackingField: The Colt M1911 has received several redesigns
+    over the past decades, but this one seems to be a very early iteration.
+  <itemMaxStack>k__BackingField: 1
+  <itemWeight>k__BackingField: 1.1
+  <itemPrefab>k__BackingField: {fileID: 0}
+  <gunType>k__BackingField: 0
+  <reloadMethod>k__BackingField: 1
+  <actionType>k__BackingField: 1
+  <shotCooldownSeconds>k__BackingField: 0.2
+  <minDamagePerProjectile>k__BackingField: 0
+  <maxDamagePerProjectile>k__BackingField: 0
+  <projectilesPerShot>k__BackingField: 1
+  <range>k__BackingField: 20
+  <minFiringSpread>k__BackingField: 5
+  <maxFiringSpread>k__BackingField: 30
+  <spreadRecoveryPerSecond>k__BackingField: 25
+  <ammoId>k__BackingField: 45_cal_acp
