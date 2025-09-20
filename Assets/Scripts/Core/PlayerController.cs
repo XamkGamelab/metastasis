@@ -29,7 +29,7 @@ namespace SLC.RetroHorror.Core
         [SerializeField] private float maxStamina = 100f;
         [SerializeField] private float staminaExhaustionBuffer = 20f;
         [SerializeField] private float staminaDrainPerSecond = 10f;
-        [SerializeField] private float staminaRegenDelay = 5f;      //seconds
+        [SerializeField] private float staminaRegenDelaySeconds = 5f;
         [SerializeField] private float staminaRegenExhaustedMult = 1.5f;    //stamina regen delay is multiplied by this if exhausted
         private float staminaRegenTimer;
         [SerializeField] private float staminaRegenPerSecond = 5f;
@@ -59,7 +59,7 @@ namespace SLC.RetroHorror.Core
         [SerializeField] private float movementScaler = 5f;
 
         [Header("Inventory")]
-        [SerializeField] private Inventory inventory;
+        [field: SerializeField] public Inventory Inventory { get; private set; }
 
         [Space, Header("DEBUG")]
         [SerializeField] private Vector2 inputVector;
@@ -67,7 +67,7 @@ namespace SLC.RetroHorror.Core
         [SerializeField] private float scaledMovementSpeed;
         [SerializeField] private Vector3 finalMoveVector;
         [Space]
-        [SerializeField] private float currentSpeed;
+        [SerializeField] private float currentSpeed;    //DO NOT REMOVE, USED TO DETERMINE IF PLAYER IS MOVING
         [SerializeField] private float currentSpeedPenaltyMult = 1f;
         [Space]
         [SerializeField] private float finalRayLength;
@@ -99,9 +99,9 @@ namespace SLC.RetroHorror.Core
         public bool IsDead { get; private set; }
 
         //Helper variables not visible in editor
-        private bool IsMoving => currentSpeed > 0f;
+        public bool IsMoving => currentSpeed > 0f;
         private bool isExhausted = false;
-        private bool disableMovement = false;       //movement disabling is handled directly in relevant methods
+        private bool disableMovement = false;       //movement disabling is handled directly in relevant methods with this
         private bool quickturnOnCooldown = false;
         private bool staminaRegenActive = false;
         private Coroutine staminaDrainCoroutine;
@@ -134,9 +134,9 @@ namespace SLC.RetroHorror.Core
             /// TESTING BELOW, DON'T MIND THE POTENTIALLY SHITTY PRACTICES ///
             //////////////////////////////////////////////////////////////////
 
-            StartCoroutine(GameManager.Instance.DoAfterDelay(() => inventory.AddItem("pistol_01")));
-            StartCoroutine(GameManager.Instance.DoAfterDelay(() => inventory.AddItem("45_cal_acp", 10)));
-            StartCoroutine(GameManager.Instance.DoAfterDelay(() => inventory.AddItem("45_cal_acp", 1)));
+            StartCoroutine(GameManager.Instance.DoAfterDelay(() => Inventory.AddItem("pistol_01"), null));
+            StartCoroutine(GameManager.Instance.DoAfterDelay(() => Inventory.AddItem("45_cal_acp", 10), null));
+            StartCoroutine(GameManager.Instance.DoAfterDelay(() => Inventory.AddItem("45_cal_acp", 1), null));
         }
 
         private void Update()
@@ -413,7 +413,7 @@ namespace SLC.RetroHorror.Core
 
         private IEnumerator RegenerateStamina()
         {
-            float realRegenDelay = isExhausted ? staminaRegenDelay * staminaRegenExhaustedMult : staminaRegenDelay;
+            float realRegenDelay = isExhausted ? staminaRegenDelaySeconds * staminaRegenExhaustedMult : staminaRegenDelaySeconds;
             //Delay before stamina starts regenerating, done with a while loop to more
             //easily restart delay if it's still active and stamina is drained again
             while (staminaRegenTimer < realRegenDelay)
@@ -445,6 +445,14 @@ namespace SLC.RetroHorror.Core
             staminaRegenActive = false;
             if (CurrentStamina > maxStamina) CurrentStamina = maxStamina;
             staminaRegenCoroutine = null;
+        }
+
+        public void SendPlayerToTransform(Transform _newTransform)
+        {
+            characterController.enabled = false;
+            scaledMovementSpeed = 0f;
+            transform.SetPositionAndRotation(_newTransform.position, _newTransform.rotation);
+            characterController.enabled = true;
         }
 
         public void CameraChanged()

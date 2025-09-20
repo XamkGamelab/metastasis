@@ -7,7 +7,11 @@ namespace SLC.RetroHorror.Core
 {
     public class InteractionController : MonoBehaviour
     {
-        private Transform player;
+        #region variables
+
+        private PlayerController playerController;
+        private Inventory playerInventory;
+        private Transform playerTransform;
 
         [Header("Input Variables")]
         [SerializeField] private InputReader inputReader;
@@ -16,19 +20,40 @@ namespace SLC.RetroHorror.Core
         [SerializeField] private BoxCollider interactionCollider;
         private List<InteractableBase> interactables;
 
+        #endregion
+
+        #region Unity default methods
+
         private void Start()
         {
-            player = GetComponentInParent<PlayerController>().transform;
-            if (player == null) Debug.LogError("InteractionController couldn't find MovementController!");
+            playerController = GetComponentInParent<PlayerController>();
+            playerInventory = playerController.Inventory;
+            playerTransform = playerController.transform;
+            if (playerTransform == null)
+            {
+                string error = string.Concat("InteractionController couldn't find PlayerController!",
+                "Make sure that InteractionController is attached to a child of PlayerController.",
+                "Destroying InteractionController to stop cascading errors.");
+                Debug.LogError(error);
+                Destroy(this);
+            }
 
             interactables = new();
             inputReader.InteractEvent += HandleInteractDown;
             inputReader.InteractEventCancelled += HandleInteractUp;
         }
 
+        private void Update()
+        {
+            if (playerController.IsMoving && interactables.Count > 0)
+            {
+                SortInteractables();
+            }
+        }
+
         private void OnTriggerEnter(Collider other)
         {
-            if (other == null || !other.TryGetComponent<InteractableBase>(out var interactable)) return;
+            if (other == null || !other.TryGetComponent(out InteractableBase interactable)) return;
 
             if (!interactables.Contains(interactable))
             {
@@ -38,13 +63,23 @@ namespace SLC.RetroHorror.Core
 
         private void OnTriggerExit(Collider other)
         {
-            if (other == null || !other.TryGetComponent<InteractableBase>(out var interactable)) return;
+            if (other == null || !other.TryGetComponent(out InteractableBase interactable)) return;
 
             if (interactables.Contains(interactable))
             {
                 interactables.Remove(interactable);
+                if (interactable.IndicatorIsVisible) interactable.DeactivateIndicator();
             }
         }
+
+        private void OnDestroy()
+        {
+            UnsubscribeInputs();
+        }
+
+        #endregion
+
+        #region interact methods
 
         private void TryInteract()
         {
@@ -52,32 +87,20 @@ namespace SLC.RetroHorror.Core
             interactables[0].OnInteract(this);
         }
 
-        #region input
-
-        private void HandleInteractDown()
-        {
-            TryInteract();
-        }
-
-        private void HandleInteractUp()
-        {
-
-        }
-
-        private void UnsubscribeInputs()
-        {
-            inputReader.InteractEvent -= HandleInteractDown;
-            inputReader.InteractEventCancelled -= HandleInteractUp;
-        }
-
-        #endregion
-
+        /// <summary>
+        /// This method sorts available interactable objects by their distance to
+        /// the player's position. Used to make sure the player always interacts
+        /// with the closest available interactable.
+        /// </summary>
         private void SortInteractables()
         {
             List<InteractableBase> oldOrder = interactables;
-            //Sort available colliders by distance to player, do interaction with closest interactable
-            interactables = interactables.OrderBy(col => Vector3.Distance(player.position, col.transform.position)).ToList();
-            if (oldOrder[0] == interactables[0]) return;
+            interactables = interactables.OrderBy(col => Vector3.Distance(playerTransform.position, col.transform.position)).ToList();
+            if (oldOrder[0] == interactables[0])
+            {
+                if (!interactables[0].IndicatorIsVisible) interactables[0].ActivateIndicator();
+                return;
+            }
 
             bool closestActivated = false;
             for (int i = 0; i < interactables.Count; i++)
@@ -101,6 +124,53 @@ namespace SLC.RetroHorror.Core
             }
         }
 
+        #endregion
+
+        #region inventory handling
+
+        public void HandlePickup(Item _item, int _amount)
+        {
+            playerInventory.AddItem(_item, _amount);
+        }
+
+        public bool PlayerHasKey(Item _key)
+        {
+            return playerInventory.InventoryHasItem(_key);
+        }
+
+        #endregion
+
+        #region door handling
+
+        public void SendPlayerToTransform(Transform _newTransform)
+        {
+            playerController.SendPlayerToTransform(_newTransform);
+        }
+
+        #endregion
+
+        #region input
+
+        private void HandleInteractDown()
+        {
+            TryInteract();
+        }
+
+        private void HandleInteractUp()
+        {
+
+        }
+
+        private void UnsubscribeInputs()
+        {
+            inputReader.InteractEvent -= HandleInteractDown;
+            inputReader.InteractEventCancelled -= HandleInteractUp;
+        }
+
+        #endregion
+
+        #region gizmos
+
         private void OnDrawGizmos()
         {
             if (interactables == null) Gizmos.color = Color.green;
@@ -108,5 +178,7 @@ namespace SLC.RetroHorror.Core
             Gizmos.matrix = interactionCollider.transform.localToWorldMatrix;
             Gizmos.DrawWireCube(Vector3.zero, interactionCollider.size);
         }
+
+        #endregion
     }
 }

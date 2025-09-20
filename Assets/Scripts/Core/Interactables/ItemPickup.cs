@@ -3,23 +3,23 @@ using UnityEngine;
 
 namespace SLC.RetroHorror.Core
 {
-    public class PickupTemplate : InteractableBase
+    public class ItemPickup : InteractableBase
     {
         [SerializeField] private Item itemToAdd;
         [SerializeField] private int amountToAdd;
+        [SerializeField] private bool hideAfterCollecting = true;
         public bool ItemWasCollected { get; private set; }
-
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        protected override void Start()
-        {
-            base.Start();
-        }
 
         #region interaction
 
         public override void OnInteract(InteractionController controller)
         {
+            //Base interact just writes a debug log with interaction details
             base.OnInteract(controller);
+            
+            controller.HandlePickup(itemToAdd, amountToAdd);
+            ItemWasCollected = true;
+            if (hideAfterCollecting) gameObject.SetActive(false);
         }
 
         #endregion
@@ -40,6 +40,7 @@ namespace SLC.RetroHorror.Core
         {
             base.Load(data);
             ItemWasCollected = data.bools[collectedKey];
+            if (hideAfterCollecting && ItemWasCollected) gameObject.SetActive(false);
         }
 
         #endregion

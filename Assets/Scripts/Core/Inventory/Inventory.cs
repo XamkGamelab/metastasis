@@ -12,24 +12,16 @@ namespace SLC.RetroHorror.Core
         public Dictionary<string, InventoryEntry> InventoryItems { get; private set; }
         [SerializeField] private ItemCatalogue catalogue;
 
-        private void Start()
+        protected override void Awake()
         {
+            base.Awake();
             InventoryItems = new();
         }
 
         public void AddItem(string _itemId, int _amount = 1)
         {
             if (_itemId == null || _itemId == "") return;
-            else if (_amount < 0)
-            {
-                string warning = string.Concat("You are using AddItem to try to remove items from an inventory, ",
-                "this is unintended and can potentially break things!");
-                Debug.LogWarning(warning);
-            }
-            else if (_amount == 0)
-            {
-                Debug.LogWarning("Unnecessary AddItem call, remove this.");
-            }
+            HandleAddItemEdgeCases(_amount);
 
             //Edge cases have been handled, actual functionality below
             if (InventoryItems.ContainsKey(_itemId))
@@ -49,7 +41,32 @@ namespace SLC.RetroHorror.Core
 
         public void AddItem(Item _item, int _amount = 1)
         {
-            AddItem(_item.itemId, _amount);
+            if (_item == null) return;
+            HandleAddItemEdgeCases(_amount);
+
+            //Edge cases have been handled, actual functionality below
+            if (InventoryItems.ContainsKey(_item.itemId))
+            {
+                InventoryItems[_item.itemId].Amount += _amount;
+            }
+            else
+            {
+                InventoryItems.Add(_item.itemId, new InventoryEntry(_item, _amount));
+            }
+        }
+
+        private void HandleAddItemEdgeCases(int _amount)
+        {
+            if (_amount < 0)
+            {
+                string warning = string.Concat("You are using AddItem to try to remove items from an inventory, ",
+                "this is unintended and can potentially break things!");
+                Debug.LogWarning(warning);
+            }
+            else if (_amount == 0)
+            {
+                Debug.LogWarning("Unnecessary AddItem call, remove this.");
+            }
         }
 
         /// <summary>
@@ -148,8 +165,18 @@ namespace SLC.RetroHorror.Core
         /// <returns></returns>
         public bool InventoryHasItem(Item _item)
         {
-            if (_item == null) return false;
-            else if (!InventoryItems.ContainsKey(_item.itemId)) return false;
+            return InventoryHasItem(_item.itemId);
+        }
+
+        /// <summary>
+        /// Checks if a specific item is in an inventory
+        /// </summary>
+        /// <param name="_itemID">ItemID to get the count of</param>
+        /// <returns></returns>
+        public bool InventoryHasItem(string _itemID)
+        {
+            if (_itemID == null || _itemID == "") return false;
+            else if (!InventoryItems.ContainsKey(_itemID)) return false;
             else return true;
         }
 
